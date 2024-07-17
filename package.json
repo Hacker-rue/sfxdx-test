@@ -1,0 +1,17 @@
+{
+  "name": "sfxdx-test",
+  "version": "1.0.0",
+  "description": "Test assignment for sfxdx company",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "ethereum",
+    "nodejs",
+    "nest",
+    "test"
+  ],
+  "author": "Hacer (pavlik.soldatov.12@gmail.com)",
+  "license": "ISC"
+}
