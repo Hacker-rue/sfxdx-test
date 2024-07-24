@@ -24,7 +24,7 @@ export class EventsService implements OnModuleInit {
   }
 
   private async orderCreated(...args) {
-    console.log(args)
+    console.log()
   }
 
   private async fetchAllEventsSinceDeployment(contract: ethers.Contract) {
@@ -48,6 +48,8 @@ export class EventsService implements OnModuleInit {
       const eventsOrderCancelled = await contract.queryFilter("OrderCancelled", Number(process.env.DEPLOYMENT_BLOCK_CONTRACT), "latest")
       for (const event of eventsOrderCancelled) {
         const decodedEvent = contract.interface.decodeEventLog("OrderCancelled", event.data, event.topics);
+        console.log("teste23")
+        console.log(decodedEvent)
         await this.updateOrderCancelled(decodedEvent)
       }
     } catch (error) {
@@ -60,6 +62,17 @@ export class EventsService implements OnModuleInit {
       const orders = await this.ordersService.query({
         filter: {OrdersId: {eq: event[0]}}
       })
+      if(orders[0] === undefined) {
+        this.ordersService.createOne({
+          OrdersId: event[0],
+          AmountA: event[1],
+          AmountB: event[2],
+          TokenA: event[3],
+          TokenB: event[4],
+          UserAddres: event[5],
+          IsActive: true
+        })
+      }
     } catch {
       this.ordersService.createOne({
         OrdersId: event[0],
@@ -78,7 +91,9 @@ export class EventsService implements OnModuleInit {
       const orders = await this.ordersService.query({
         filter: {OrdersId: {eq: event[0]}}
       })
-
+      console.log(event)
+      console.log("не понятный ордер: ")
+      console.log(orders[0])
       if(orders[0].AmountA == event[4]) {
         await this.ordersService.updateOne(orders[0].Id, {
           IsActive: false
