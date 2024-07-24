@@ -23,3 +23,10 @@ sudo docker-compose up -d
 ```
 npm run start
 ```
+
+Путь для вызова метода getOrders:
+```
+http://localhost:3000/orders/getOrders
+```
+
+Возвращает все ордера которые были созданны когда-либо в контракте
